@@ -32,6 +32,8 @@ function MyDiff()
   endif
 endfunction
 
+set encoding=utf-8
+
 set nocompatible
 filetype off
 
@@ -40,27 +42,35 @@ set rtp+=~/vimfiles/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'mattn/emmet-vim'
 Plugin 'alvan/vim-closetag'
-Plugin 'python-mode/python-mode'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdtree'
+Plugin 'SirVer/ultisnips'
+Plugin 'rpdelaney/vim-sourcecfg'
+Plugin 'koron/minimap-vim'
+Plugin 'honza/vim-snippets'
 
 call vundle#end()
 filetype plugin indent on
 
+syntax enable
+set background=dark
+colorscheme molokai
+let g:solarized_termcolors=256
+let g:solarized_visibility = "high"
+
+nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
+
+let g:airline_powerline_fonts = 1
+
 set nu
-set guifont=Monaco:h11
+set guifont=Consolas:h13
 set noundofile
 set nobackup
-syntax on
-colorscheme molokai
 filetype plugin indent on
 set shiftwidth=4 
 set tabstop=4
 set smartindent
 set cindent
 set autoindent
-
-ino [ []<left>
-ino { {}<left>
-ino {<CR> {<CR>}<ESC>O
 
