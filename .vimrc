@@ -1,88 +1,54 @@
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
-
-set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
-endfunction
-
-set encoding=utf-8
-
 set nocompatible
 filetype off
 
-set rtp+=$HOME/.vim/bundle/Vundle.vim
+set encoding=UTF-8
+call plug#begin('$VIM/plugged')
 
-call vundle#begin()
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'alvan/vim-closetag'
+Plug 'jiangmiao/auto-pairs'
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'sjl/badwolf'
-Plugin 'alvan/vim-closetag'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'rafi/awesome-vim-colorschemes'
-Plugin 'scrooloose/nerdtree'
-"Plugin 'SirVer/ultisnips'
-Plugin 'rpdelaney/vim-sourcecfg'
-Plugin 'honza/vim-snippets'
-Plugin 'morhetz/gruvbox'
+Plug 'rpdelaney/vim-sourcecfg'
+Plug 'pangloss/vim-javascript'
+Plug 'honza/vim-snippets'
+Plug 'mattn/emmet-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'burnettk/vim-angular'
 
-call vundle#end()
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+
+Plug 'gruvbox-community/gruvbox'
+Plug 'sjl/badwolf'
+
+call plug#end()
 filetype plugin indent on
 
-set termguicolors
+"let g:lsc_auto_map = v:true
 
-set lines=50 columns=200
+let g:python_host_prog  = 'C:\Program Files\Python27'
+let g:python3_host_prog = 'C:\Users\admin\AppData\Local\Programs\Python\Python38-32'
 
 syntax enable
 set background=dark
-colorscheme gruvbox
-"let g:solarized_termcolors=256
-"let g:solarized_visibility = "high"
+colorscheme badwolf
+set termguicolors
 
 let g:airline_powerline_fonts = 1
 
-"nnoremap <buffer> <F9> :exec '!python3' shellescape(@%, 1)<cr>
+set nu rnu
 
-set nu
-set guifont=Lucida\ Console:h10 noanti
+set timeoutlen=1000 ttimeoutlen=0
+
+set shiftwidth=2 
+set tabstop=2
+set mouse=a
 
 set noundofile
 set nobackup
 
-set shiftwidth=4 
-set tabstop=4
-
 set smartindent
 set cindent
 set autoindent
-
-set guioptions-=m
-set guioptions-=T
-set guioptions-=r
-
